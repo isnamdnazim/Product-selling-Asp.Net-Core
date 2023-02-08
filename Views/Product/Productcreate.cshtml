@@ -1,0 +1,83 @@
+﻿@model TestProject.ViewModel.ProductVM
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="card card-primary mt-5">
+        <div class="card-header">
+            <h3 class="card-title">Product Create</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form enctype="multipart/form-data" asp-action="Productcreate">
+
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Product Code</label>
+                            <input type="text" required class="form-control" id="exampleInputPassword1" placeholder="Product Code" asp-for="ProductCode">
+                            <p class="text-danger">    @TempData["msg"]</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Product Tittle</label>
+                            <input type="text" required class="form-control" id="exampleInputPassword1" placeholder="Product Tittle" asp-for="ProductTittle">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Sales price</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Sales price" asp-for="SalesPrice">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Add Product In Stock</label>
+                            <input type="text" class="form-control" id="initqty" onkeyup="initqtyf()" placeholder="Stock Quantity" asp-for="InitialProductStockQty">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Image</label>
+                        <input class="form-control" id="initqty" asp-for="ProductImage">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function initqtyf() {
+            var qty = document.getElementById('initqty').value;
+            document.getElementById('remainqty').value = qty;
+        }
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+    </script>
+</body>
+</html>
+
+
+

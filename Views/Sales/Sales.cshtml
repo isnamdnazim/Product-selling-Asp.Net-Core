@@ -1,0 +1,833 @@
+﻿@model TestProject.ViewModel.CustomerVM
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body>
+
+    <h4>Sales</h4>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Product</label>
+                        <select class="form-control  " id="inv" asp-items="@ViewBag.pr" name="id">
+                            <option selected>Select One </option>
+                        </select>
+                        <span class="text-danger"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+            <div class="row mt-2">
+                <div class="col-3">
+                    <b>Product Code</b>
+                </div>
+                <div class="col-3">
+                    <b>Product Name</b>
+                </div>
+                <div class="col-3">
+                    <b>Unit Price</b>
+                </div>
+                <div class="col-3">
+                    <b>Remain Qty</b>
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="product" readonly />
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" id="name" readonly />
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" id="sellprice" readonly />
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" id="rmn" readonly />
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label>Order Qty :</label>
+                    <input type="number" id="qty" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Amount :</label>
+                    <input readonly type="text" id="amount" class="form-control" />
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label> Discount Percentage :</label>
+                    <input type="text" id="per" class="form-control" value="0" />
+                </div>
+                <div class="col-md-6">
+                    <label> Amount :</label>
+                    <input readonly type="text" id="amnt" class="form-control" value="0" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label> vat :</label>
+                    <input type="text" id="vap" class="form-control" value="0" />
+                </div>
+                <div class="col-md-6">
+                    <label> vat :</label>
+                    <input type="text" readonly id="vaa" class="form-control" value="0" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <label> Total :</label>
+                    <input readonly type="text" id="totaltt" class="form-control" />
+                </div>
+            </div>
+            <hr />
+            <div class="row mt-2">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="btn-group">
+                        <button id="additem" class="btn btn-success" disabled>Add</button>
+                        <a asp-action="Salesindex" class="btn btn-warning">Back to List</a>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="productname" value="" />
+        </div>
+
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+
+                    <label asp-for="CustID" class="control-label">Customer</label>
+                    <div class=" input-group">
+                        <select class="form-control" data-native-menu="false" id="supplier" asp-for="CustID" asp-items="@ViewBag.cs">
+                            <option selected="selected" value="0">Select One</option>
+                        </select>
+                        @**@
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                @*<a href="#" data-toggle="modal"
+                                id="ddd"><i class="fas fa-plus-circle"></i></a>*@
+                                <button id="ddd" class=""><i class="fas fa-plus-circle"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <span asp-validation-for="CustID" class="text-danger"></span>
+
+                </div>
+            </div>
+            <hr />
+
+            <div class="row mt-5">
+
+                <div class="col-6">
+                    <b>Total Amount</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" readonly id="totalall" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <b>Total Vat</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" readonly id="totalvat" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <b>Product Discount</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" readonly id="totaldis" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <b>Payable Amount</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" readonly id="payable" class="form-control" />
+                    <input type="hidden" id="himrpdis" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <b>MRP Discount</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="mrpdis" class="form-control" value="0" />
+
+                </div>
+            </div>
+
+            <hr />
+
+            <h4>Payment</h4>
+            <div class="row mt-3">
+
+                <div class="col-6">
+                    <b>Cash</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="cashpay" class="form-control" value="0" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <b>Card</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="cardpay" class="form-control" value="0" />
+                </div>
+            </div>
+            <div class="row mb-2">
+
+                <div class="col-6">
+                    <b>Mobile Banking</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="mfspay" class="form-control" value="0" />
+                </div>
+            </div>
+            <div class="row mb-2">
+
+                <div class="col-6">
+                    <b>Gift</b>
+                </div>
+                <div class="col-6">
+                    <input type="text" id="Gift" class="form-control" value="0" />
+                </div>
+            </div>
+            <hr />
+            <div class="row mt-2">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="btn-group">
+                        <button id="btnsubmit" class="btn btn-success" disabled>Submit</button>
+
+                        <button id="btncancel" class="btn btn-warning">Cancel</button>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+    <h2>Item Details</h2>
+    <div>
+        <table class="table table-light table-hover">
+            <thead>
+                <tr>
+
+
+                    <th>Product Name</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Discount</th>
+                    <th>Vat</th>
+                    <th>Total</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody id="partTable">
+            </tbody>
+            @*<tr> <td class="text-right"> Total<td id="total"></td> </tr>*@
+
+        </table>
+    </div>
+
+
+    @*Customer*@
+
+
+    <div class="modal fade" id="suppliercreate" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Customer Create</h5>
+                    <button type="button" id="modalcross" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">CustomarName</label>
+                        <input type="text" class="form-control" id="supname" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Customar Phone Number</label>
+                        <input type="text" class="form-control" id="supphone" placeholder="Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Area</label>
+                        <input type="text" class="form-control" id="suparea" placeholder="Area">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Customer Address</label>
+                        <input type="text" class="form-control" id="subadd" placeholder="Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <input type="email" class="form-control" id="supemail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="customermodaloff">Close</button>
+                    <input id="customercreate" type="submit" class="btn btn-primary" value="Save Changes" />
+
+
+                    @*<input id="btnSaveCountry" type="submit" class="btn btn-primary" value="Create" />*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    @*<script src="https://cdn.snpsujon.me/snpcookie.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    @section Scripts {
+
+        <script>
+            //$(document).ready(function () {
+            //    $('#inv').select2();
+            //});
+        </script>
+
+
+        <script>
+
+            //$(function () {
+            //    $('.select2').select2()
+            //});
+
+
+
+            $('#cashpay, #cardpay, #mfspay, #Gift').keyup(function () {
+
+                var cash = $('#cashpay').val();
+
+                var card = $('#cardpay').val();
+
+                var mfs = $('#mfspay').val();
+
+                var gift = $('#Gift').val();
+
+                var pay = $('#payable').val();
+
+
+                var tot = parseFloat(cash) + parseFloat(card) + parseFloat(mfs) + parseFloat(gift);
+
+                if (tot >= parseFloat(pay)) {
+                    $("#btnsubmit").attr("disabled", false);
+                }
+                else {
+                    $("#btnsubmit").attr("disabled", true);
+                }
+
+            })
+
+            $('#ddd').click(function () {
+                //debugger;
+                $('#suppliercreate').modal("show");
+            });
+
+            $('#customercreate').click(function () {
+                var cusname = $('#supname').val();
+                var cusphone = $('#supphone').val();
+                var cusarea = $('#suparea').val();
+                var cusadd = $('#subadd').val();
+                var cusemail = $('#supemail').val();
+
+                var mydata = {};
+
+                mydata.CustomerName = cusname;
+                mydata.CustomarPhn = cusphone;
+                mydata.CustomerArea = cusarea;
+                mydata.CustomarAddress = cusadd;
+                mydata.CustomerEmail = cusemail;
+
+                console.log(mydata);
+                $.ajax({
+                    url: "/Sales/CustomerCreate",
+                    type: "POST",
+                    data: { data: mydata },
+                    success: function (subheads) {
+                        if (subheads != null && !jQuery.isEmptyObject(subheads)) {
+                            $('#supplier').find("option:not(:first)").remove();
+
+
+                            //console.group("CUstomer Sub");
+                            //console.table(subheads);
+                            //console.groupEnd();
+
+                            $.each(subheads, function (index, subhead) {
+
+                                $('#supplier').append(`<option value="` + subhead.customerID + `">` + subhead.customerName + "-" + subhead.customarPhn + `</option>`);
+
+                            });
+                            $('#supplier option:eq(1)').prop('selected', true);
+                            $('#suppliercreate').modal("hide");
+
+                        };
+                    },
+
+                });
+
+            });
+
+            $('#customermodaloff').click(function(){
+                $('#suppliercreate').modal("hide");
+            });
+            $('#modalcross').click(function () {
+                $('#suppliercreate').modal("hide");
+            });
+            modalcross
+
+            $('#btnsubmit').click(function () {
+
+                ;
+                var prodis = $('#totaldis').val();
+                var mrpdis = $('#mrpdis').val();
+
+                var mydata = {};
+
+                mydata.CustID = $('#supplier').val();
+                mydata.SubTotalAmount = $('#totalall').val();
+                mydata.TotalAmount = $('#payable').val();
+                mydata.Discount = parseFloat(prodis) + parseFloat(mrpdis);
+                mydata.Vat = $('#totalvat').val();
+                mydata.CashAmount = $('#cashpay').val();
+                mydata.CardAmount = $('#cardpay').val();
+                mydata.MobilebankingAmount = $('#mfspay').val();
+                mydata.GiftAmount = $('#Gift').val();
+
+                console.log("sales TBL - ", mydata);
+
+                var SalesProduct = new Array();
+                $("#partTable TR").each(function () {
+                    var row = $(this);
+                    var selsp = {};
+
+                    selsp.ProductID = row.find("TD").eq(0).html();
+                    selsp.OrderQty = row.find("TD").eq(2).html();
+                    selsp.UnitPrice = row.find("TD").eq(3).html();
+                    selsp.Amount = row.find("TD").eq(6).html();
+                    selsp.Pvat = row.find("TD").eq(5).html();
+                    selsp.PDiscount = row.find("TD").eq(4).html();
+
+                    SalesProduct.push(selsp);
+
+
+
+
+                });
+                mydata.selsp = SalesProduct;
+
+                console.log("salesProduct TBL - ", mydata);
+
+                var XX = mydata.CustID = $('#supplier').val();
+                console.log("XX", XX);
+                debugger;
+                if (Number(XX) == 0 ) {
+                    debugger;
+                    alert("Please Select Customr");
+                    return false;
+                }
+                else{
+                    $.ajax({
+                        url: "/Sales/SalesCreate",
+                        type: "POST",
+                        data: { data: mydata },
+                        success: function (mydata) {
+                            if (mydata != 0) {
+                                if (confirm("Your Data Has Been Saved.Are You Want to print Sales Report?")) {
+                                    debugger;
+                                    console.log("data", mydata);
+                                    window.open('/Sales/Print?id=' + mydata, '_blank');
+                                }
+                                window.location.href = "/Sales/Salesindex";
+                            }
+                            else {
+                                alert("Data has been not saved");
+                            }
+                        },
+
+                    });
+                }
+                //$.ajax({
+                //    url: "/Sales/SalesCreate",
+                //    type: "POST",
+                //    data: { data: mydata },
+                //    success: function (mydata) {
+                //        if (mydata != 0) {
+                //            if (confirm("Your Data Has Been Saved.Are You Want to print Sales Report?")) {
+                //                console.log("data", mydata);
+
+
+                //                window.open('/Sales/Print?id=' + mydata, '_blank');
+
+                //            }
+                //            else {
+                //                window.location.href = "/Sales/Salesindex";
+                //            }
+
+
+
+                //        }
+                //        else {
+                //            alert("Data has been  not saved");
+                //        }
+                //    },
+
+                //});
+
+            });
+
+
+
+
+            //For Get Product Details
+            $("#inv").change(function () {
+                var prname = $("#inv").val();
+                /*alert(prname);*/
+                if (prname != null && prname != '') {
+                    $.getJSON('@Url.Action("GetProductName")', { proname: prname }, function (mainhead) {
+                        console.log(mainhead);
+                        $('#product').val(mainhead.productCode);
+                        $('#name').val(mainhead.productTittle);
+                        $('#sellprice').val(mainhead.salesPrice);
+                        $('#rmn').val(mainhead.remainingQty);
+                        $('#productname').val(mainhead.productTittle);
+                        $("#qty,#amount,#vap,#vaa,#per,#amnt").val("0");
+
+
+                    });
+                    $("#qty").attr("readonly", false);
+                }
+            });
+            //add multi item to table
+            $('#additem').click(function () {
+                var customer = $('#supplier').val();
+                var product = $('#productname').val();
+                var productid = $('#inv').val();
+                var quan = $('#qty').val();
+                var discount = $('#amnt').val();
+                var amount = $('#amount').val();
+                var vat = $('#vaa').val();
+                var total = $('#totaltt').val();
+                var unitprice = (amount / quan);
+
+                var remm = $('#rmn').val();
+                var cp = quan;
+                $("#partTable TR").each(function () {
+                    var row = $(this);
+
+                    var value = row.find("TD").eq(0).html();
+                    var OrderQty = row.find("TD").eq(2).html();
+                    console.log(value);
+                    if (value == productid) {
+
+                        console.log(value);
+                        cp = parseInt(cp) + parseInt(OrderQty);
+                    }
+
+                });
+
+                if (parseInt(cp) > parseInt(remm)) {
+                    alert("Over Stock");
+                }
+                else {
+                    var _tr = '<tr><td hidden class="prodiddd">' + productid + '</td><td>' + product + '</td><td>' + quan + '</td><td>' + unitprice + '</td><td id="sum1">' + discount + '</td> <td>' + vat + '</td><td>' + total + '</td><td><button class="btn btn-success removeitem">Remove</button></td></tr>';
+                    $('#partTable').append(_tr);
+
+
+                    //for final calculation using cookie
+                    var totalamm = Cookies.get("totalamm");
+                    var totalvat = Cookies.get("totalvat");
+                    var totaldis = Cookies.get("totaldis");
+                    var payable = Cookies.get("payable");
+                    if (totalamm == null) {
+                        Cookies.set("totalamm", amount, 365);
+                        $('#totalall').val(amount);
+                    }
+                    else {
+                        totalamm = parseFloat(totalamm) + parseFloat(amount);
+                        Cookies.set("totalamm", totalamm, 365);
+                        $('#totalall').val(totalamm);
+                    }
+                    if (totalvat == null) {
+                        Cookies.set("totalvat", vat, 365);
+                        $('#totalvat').val(vat);
+                    }
+                    else {
+                        totalvat = parseFloat(totalvat) + parseFloat(vat);
+                        Cookies.set("totalvat", totalvat, 365);
+                        $('#totalvat').val(totalvat);
+                    }
+                    if (totaldis == null) {
+                        Cookies.set("totaldis", discount, 365);
+                        $('#totaldis').val(discount);
+                    }
+                    else {
+                        totaldis = parseFloat(totaldis) + parseFloat(discount);
+                        Cookies.set("totaldis", totaldis, 365);
+                        $('#totaldis').val(totaldis);
+                    }
+                    if (payable == null) {
+                        Cookies.set("payable", total, 365);
+                        $('#payable').val(total);
+                        $('#himrpdis').val(total);
+                    }
+                    else {
+                        payable = parseFloat(payable) + parseFloat(total);
+                        Cookies.set("payable", payable, 365);
+                        $('#payable').val(payable);
+                        $('#himrpdis').val(payable);
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+            });
+            //delete data from multi table
+            $("body").on("click", ".removeitem", function () {
+
+                var product = $('#productname').val();
+                if (confirm("Do you want to delete: " + product)) {
+                    $(this).closest('tr').remove();
+                    var row = $(this).closest('tr');
+
+                    var OrderQty = row.find("TD").eq(2).html();
+                    var UnitPrice = row.find("TD").eq(3).html();
+                    var Amount = row.find("TD").eq(6).html();
+                    var Pvat = row.find("TD").eq(5).html();
+                    var PDiscount = row.find("TD").eq(4).html();
+                    var totalammm = parseInt(OrderQty) * parseInt(UnitPrice);
+
+                    console.log(OrderQty + "--" + UnitPrice + "--" + Amount + "--" + Pvat + "--" + PDiscount);
+
+                    var totalamm = Cookies.get("totalamm");
+                    var totalvat = Cookies.get("totalvat");
+                    var totaldis = Cookies.get("totaldis");
+                    var payable = Cookies.get("payable");
+                    if (totalamm == null) {
+                        Cookies.set("totalamm", 0, 365);
+                        $('#totalall').val(amount);
+                    }
+                    else {
+                        totalamm = parseFloat(totalamm) - parseFloat(totalammm);
+                        Cookies.set("totalamm", totalamm, 365);
+                        $('#totalall').val(totalamm);
+                    }
+                    if (totalvat == null) {
+                        Cookies.set("totalvat", 0, 365);
+                        $('#totalvat').val(vat);
+                    }
+                    else {
+                        totalvat = parseFloat(totalvat) - parseFloat(Pvat);
+                        Cookies.set("totalvat", totalvat, 365);
+                        $('#totalvat').val(totalvat);
+                    }
+                    if (totaldis == null) {
+                        Cookies.set("totaldis", 0, 365);
+                        $('#totaldis').val(discount);
+                    }
+                    else {
+                        totaldis = parseFloat(totaldis) - parseFloat(PDiscount);
+                        Cookies.set("totaldis", totaldis, 365);
+                        $('#totaldis').val(totaldis);
+                    }
+                    if (payable == null) {
+                        Cookies.set("payable", 0, 365);
+                        $('#payable').val(total);
+                        $('#himrpdis').val(total);
+                    }
+                    else {
+                        payable = parseFloat(payable) - parseFloat(Amount);
+                        Cookies.set("payable", payable, 365);
+                        $('#payable').val(payable);
+                        $('#himrpdis').val(payable);
+                    }
+
+
+                }
+
+
+
+            });
+
+
+            //delete cookie on load
+            function Onload() {
+                //debugger;
+                Cookies.remove("totalvat");
+                Cookies.remove("payable");
+                Cookies.remove("totalamm");
+                Cookies.remove("totaldis");
+                Cookies.remove("#supplier");
+            }
+            window.onload = Onload();
+
+        </script>
+
+        <script>
+            //change quantity to change ammount
+            $("#qty").change(function () {
+                var name = $("#inv").val();
+                var Quantity = $("#qty").val();
+                var ss = parseInt(Quantity);
+                var remain = $("#rmn").val();
+                if (isNaN(ss)) {
+                    $("#additem").attr("disabled", true);
+                    $("#qty").css('border', '1px solid red');
+                }
+                else {
+
+                    if (parseInt(Quantity) > parseInt(remain)) {
+                        alert("Over Stock");
+                        $("#additem").attr("disabled", true);
+                        $("#qty").css('border', '1px solid red');
+                    }
+                    else {
+
+                        if (Quantity != 0 && name != null && name != '' && Quantity != '') {
+                            $.getJSON('@Url.Action("GetAmount")', { name: name, Quantity: Quantity }, function (mainhead) {
+                                console.log(mainhead);
+                                $('#amount').val(mainhead);
+                                $('#vap').keyup();
+                                $('#per').keyup();
+
+                            });
+                            $("#additem").attr("disabled", false);
+                            $("#qty").css('border', '1px solid #CED4DA');
+
+                        }
+                    }
+                }
+
+
+
+
+                /*    alert(Quantity);*/
+
+
+            });
+
+
+            //for change discount percent
+            $('#per').keyup(function () {
+                var amount = $('#amount').val();
+                var per = $('#per').val();
+                var dip = ((amount * per) / 100);
+                $('#amnt').val(dip);
+                $('#vap').keyup();
+
+            });
+
+            $('#mrpdis').keyup(function () {
+                var payable = $('#himrpdis').val();
+                var dis = $('#mrpdis').val();
+                var pay = parseFloat(payable) - parseFloat(dis);
+                console.log(pay);
+                if (isNaN(pay)) {
+                    $('#payable').val(payable);
+                }
+                else {
+                    $('#payable').val(pay);
+                }
+
+
+
+            });
+
+
+            //for change vat
+            $('#vap').keyup(function () {
+                var vamount = $('#amount').val();
+                var discount = $('#amnt').val();
+                var vat = $('#vap').val();
+
+                var vatamnt = (((vamount - discount) * vat) / 100);
+                $('#vaa').val(vatamnt);
+            });
+
+            //for total after calculation
+            $("#qty,#amount,#vap,#vaa,#per,#amnt").on('keyup change', function () {
+                var vamount = $('#amount').val();
+                var discount = $('#amnt').val();
+                var vat = $('#vaa').val();
+                var total = (parseFloat(vamount - discount) + parseFloat(vat));
+                $('#totaltt').val(total);
+            });
+
+
+
+
+
+
+        </script>
+
+
+    }
+
+</body>
+</html>

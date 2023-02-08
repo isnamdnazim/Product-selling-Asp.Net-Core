@@ -1,0 +1,124 @@
+﻿
+@model IEnumerable<TestProject.ViewModel.CustomerVM>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="~/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Sell Product </h3>
+        </div>
+        <a asp-action="Sales" class=" btn btn-primary float-right">Sale</a>
+
+        <div class="card-body">
+            <table id="example1" data-order='[[ 0, "desc" ]]' class="table  table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var items in Model)
+                    {
+                        <tr>
+
+                            <td>@items.Date</td>
+                            <td>@items.CustomerName</td>
+
+                            <td>@items.TotalAmount</td>
+
+                            <td class="float-right">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    @*<a asp-action="" asp-route-id="@items.Id" type="button" class="btn btn-warning">Edit</a>*@
+                                    <a asp-action="Salesdetails" asp-route-id="@items.SaleID" type="button" class="btn btn-info">Details</a>
+                                    <input type="hidden" class="mainid" value="@items.SaleID" />
+                                    @*<button class="btn btn-warning crprint">Print</button>*@
+                                    <a asp-action="Print" asp-route-id="@items.SaleID" target="_blank" class="btn btn-warning">Print</a>
+
+                                </div>
+                            </td>
+
+
+                        </tr>
+                    }
+
+                </tbody>
+                @*<tfoot>
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>*@
+            </table>
+        </div>
+
+    </div>
+
+
+
+    @section Scripts {
+        <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+
+        <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="~/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="~/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="~/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="~/assets/plugins/jszip/jszip.min.js"></script>
+        <script src="~/assets/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="~/assets/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="~/assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="~/assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="~/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+        <script src="~/assets/dist/js/adminlte.min.js"></script>
+
+
+
+        <script>
+            $(function () {
+                $("#example1").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                    order: [[0, 'desc']]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+        </script>
+
+
+        <script>
+            $('.crprint').click(function () {
+
+                var val = $(this).closest("tr").find("input[class='mainid']").val();
+
+                //var host = window.origin; //Publish
+                var host = "https://localhost:7096";
+               // window.open(host + '/Reports/Rep/SellsRep?SaleID=' + val, '_blank'); //Publish
+                window.open(host + '/Rep/SellsRep?SaleID=' + val,  '_blank' );
+            });
+
+                   
+        </script>
+    }
+
+</body>
+</html>
+

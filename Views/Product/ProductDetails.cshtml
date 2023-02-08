@@ -1,0 +1,45 @@
+﻿@model TestProject.Models.Product
+
+<h1>Details</h1>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-2 font-weight-bold">Img</div>
+        <div class="col-2 font-weight-bold">Title</div>
+        <div class="col-2 font-weight-bold">COde</div>
+        <div class="col-2 font-weight-bold">Price</div>
+        <div class="col-2 font-weight-bold">Stock</div>
+        <div class="col-2 font-weight-bold">Remain</div>
+
+    </div>
+    <div class="row">
+        <div class="col-2">
+            @if (Model.PPicture == null)
+            {
+                <img class="profile-user-img img-fluid img-circle" src="~/images/user.png" alt="User profile picture">
+            }
+            else
+            {
+                <img class="profile-user-img img-fluid img-circle" src="~/images/@Model.PPicture" alt="User profile picture">
+            }
+            </div>
+        <div class="col-2">@Model.ProductTittle</div>
+        <div class="col-2">@Model.ProductCode</div>
+        <div class="col-2">@Model.SalesPrice</div>
+        <div class="col-2">@Model.InitialProductStockQty</div>
+        <div class="col-2">@Model.RemainingQty</div>
+
+    </div>
+    
+
+    
+</div>
+<div>
+    <a asp-action="EditProduct" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="ProductIndex">Back to List</a>
+</div>
+
+
+
